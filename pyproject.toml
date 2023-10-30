@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "sword-converter"
+version = "0.1.0"
+description = "SWORD Converter"
+license = "GPL-3.0-or-later"
+authors = ["Evans <evans@fundi.dev>"]
+readme = "README.md"
+homepage = "https://github.com/evnskc/sword-converter"
+repository = "https://github.com/evnskc/sword-converter"
+documentation = "https://github.com/evnskc/sword-converter"
+keywords = ["SWORD", "Converter"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
