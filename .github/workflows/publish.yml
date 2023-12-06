@@ -1,0 +1,36 @@
+name: Publish
+
+on:
+  workflow_run:
+    workflows:
+      - Test
+    types:
+      - completed
+    branches:
+      - main
+
+concurrency:
+  group: Publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v4
+
+      - name: Set up python and poetry
+        uses: ./.github/actions/setup
+        with:
+          python-version: "3.x"
+
+      - name: Build
+        run: poetry build
+
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@release/v1
