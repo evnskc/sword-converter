@@ -120,18 +120,18 @@ class Bible(object):
                         ))
                     chapter_rowid = cursor.lastrowid
                     cursor.executemany(
-                        "INSERT INTO verses VALUES(:chapter,:verse,:text)",
+                        "INSERT INTO verses VALUES(?,?,?)",
                         (
-                            {
-                                "chapter": chapter_rowid,
-                                "verse": verse_number,
-                                "text": self.sword_bible.get(
+                            (
+                                chapter_rowid,
+                                verse_number,
+                                self.sword_bible.get(
                                     books=book.name,
                                     chapters=chapter_number,
                                     verses=verse_number,
                                     join=""
                                 )
-                            } for verse_number in range(1, book.chapter_lengths[chapter_number - 1] + 1)
+                            ) for verse_number in range(1, book.chapter_lengths[chapter_number - 1] + 1)
                         ))
                     progress.update(chapter_number)
 
